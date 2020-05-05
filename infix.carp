@@ -1,7 +1,7 @@
 (defndynamic null? [l] (= (length l) 0))
 
 (defndynamic infix-prec [op]
-  (if (Dynamic.or (= op '+) (= op '-)) 1
+  (if (or (= op '+) (= op '-)) 1
     (if (= 'pow op) 3
       2)))
 
@@ -19,8 +19,8 @@
     (if (list? (car expr))
       (infix:parse (cdr expr) operators (cons (infix:parse (car expr)) operands))
       (if (symbol? (car expr))
-        (if (Dynamic.or (null? operators)
-                        (> (infix-prec (car expr)) (infix-prec (car operators))))
+        (if (or (null? operators)
+                (> (infix-prec (car expr)) (infix-prec (car operators))))
           (infix-parse (cdr expr) (cons (car expr) operators) operands)
           (infix-op expr operators operands))
         (infix-parse (cdr expr) operators (cons (car expr) operands))))))
