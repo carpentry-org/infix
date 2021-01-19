@@ -17,7 +17,7 @@
       (car operands)
       (infix-op expr operators operands))
     (if (list? (car expr))
-      (infix:parse (cdr expr) operators (cons (infix:parse (car expr)) operands))
+      (infix-parse (cdr expr) operators (cons (infix-parse (car expr) '() '()) operands))
       (if (symbol? (car expr))
         (if (or (null? operators)
                 (> (infix-prec (car expr)) (infix-prec (car operators))))
